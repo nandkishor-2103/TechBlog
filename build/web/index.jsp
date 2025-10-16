@@ -1,10 +1,8 @@
-<%-- 
-    Document   : index
-    Created on : 16-Oct-2025, 1:45:25 pm
-    Author     : Nandkishor
---%>
 
+<%@page import="com.tech.blog.helper.ConnectionProvider"%>
+<%@page import="com.mysql.cj.conf.ConnectionPropertiesTransform"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="java.sql.*" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -17,9 +15,12 @@
     <body>
         <h1>Hello World!</h1>
 
+        <% 
+            Connection con = ConnectionProvider.getConnection();
+            
+        %>
 
-
-
+        <h1><%= con %></h1>
 
 
         <!--javascript-->
