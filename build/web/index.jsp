@@ -13,7 +13,7 @@
         <link href="css/mystyle.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
-        <h1>Hello Advanced Java</h1>
+        <h1>Hello World!</h1>
 
         <% 
             Connection con = ConnectionProvider.getConnection();
