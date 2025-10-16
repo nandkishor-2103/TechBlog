@@ -13,16 +13,6 @@
         <link href="css/mystyle.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
-        <h1>Hello World!</h1>
-
-        <% 
-            Connection con = ConnectionProvider.getConnection();
-            
-        %>
-
-        <h1><%= con %></h1>
-
-
         <!--javascript-->
         <script
             src="https://code.jquery.com/jquery-3.7.1.min.js"
