@@ -29,4 +29,59 @@ public class LikeDao {
         return f;
     }
 
+
+    // count a likes on aparticular post with particular id
+    public int countLikeOnPost(int pid) {
+        int count = 0;
+
+        String q = "select count(*) from liked where pid=?";
+        try {
+            PreparedStatement p = this.con.prepareStatement(q);
+            p.setInt(1, pid);
+            ResultSet set = p.executeQuery();
+            if (set.next()) {
+                count = set.getInt("count(*)");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return count;
+    }
+
+
+    // it checks that the particular post is liked by particular id or not
+    public boolean isLikedByUser(int pid, int uid) {
+        boolean f = false;
+        try {
+            PreparedStatement p = this.con.prepareStatement("select * from liked where pid=? and uid=?");
+            p.setInt(1, pid);
+            p.setInt(2, uid);
+            ResultSet set = p.executeQuery();
+            if (set.next()) {
+                f = true;
+            }
+
+        } catch (Exception e) {
+        }
+        return f;
+    }
+
+    
+    public boolean deleteLike(int pid, int uid) {
+        boolean f = false;
+        try {
+            PreparedStatement p = this.con.prepareStatement("delete from liked where pid=? and uid=? ");
+            p.setInt(1, pid);
+            p.setInt(2, uid);
+            p.executeUpdate();
+            f = true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return f;
+    }
+
 }
