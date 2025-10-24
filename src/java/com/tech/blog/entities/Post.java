@@ -1,9 +1,10 @@
+
 package com.tech.blog.entities;
 
 import java.sql.*;
 
 public class Post {
-
+ 
     private int pid;
     private String pTitle;
     private String pContent;
@@ -16,8 +17,7 @@ public class Post {
     public Post() {
     }
 
-    public Post(int pid, String pTitle, String pContent, String pCode, String pPic, Timestamp pDate, int catId,
-            int userId) {
+    public Post(int pid, String pTitle, String pContent, String pCode, String pPic, Timestamp pDate, int catId, int userId) {
         this.pid = pid;
         this.pTitle = pTitle;
         this.pContent = pContent;
@@ -101,5 +101,5 @@ public class Post {
     public void setUserId(int userId) {
         this.userId = userId;
     }
-
+    
 }
