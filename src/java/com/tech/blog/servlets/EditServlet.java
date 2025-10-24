@@ -70,11 +70,11 @@ public class EditServlet extends HttpServlet {
 
                 // delete older profile photos
                 String pathOldFile = request.getRealPath("/") + "pics" + File.separator + oldFile;
-
-                if (!oldFile.equals("default.png")) {
+                
+                if(!oldFile.equals("default.png")) {
                     Helper.deleteFile(pathOldFile);
                 }
-
+                
                 if (Helper.saveFile(part.getInputStream(), path)) {
                     out.println("Profile updated...");
                     Message msg = new Message("Profile details updated successfully...", "success", "alert-success");
@@ -90,7 +90,7 @@ public class EditServlet extends HttpServlet {
                 s.setAttribute("msg", msg);
 
             }
-
+            
             response.sendRedirect("profile.jsp");
 
             out.println("</body>");
