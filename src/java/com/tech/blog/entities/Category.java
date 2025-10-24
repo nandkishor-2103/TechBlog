@@ -1,9 +1,9 @@
 
 package com.tech.blog.entities;
 
-
 public class Category {
-    
+
+
     private int cid;
     private String name;
     private String description;
@@ -14,15 +14,13 @@ public class Category {
         this.description = description;
     }
 
-    public Category() {
-        
-    }
+
 
     public Category(String name, String description) {
         this.name = name;
         this.description = description;
     }
-    
+
     // Getter and Setter
     public int getCid() {
         return cid;
@@ -47,5 +45,4 @@ public class Category {
     public void setDescription(String description) {
         this.description = description;
     }
-    
-}
+

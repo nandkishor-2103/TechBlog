@@ -16,6 +16,35 @@
                                     border-color: #ccc !important;
                                     background-color: #f8f9fa !important;
                                 }
+
+                                .post-card {
+                                    background: #ffffff;
+                                    border-radius: 14px;
+                                    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+                                    margin-bottom: 40px;
+                                    padding: 28px;
+                                    max-width: 720px;
+                                    margin-left: auto;
+                                    margin-right: auto;
+                                    transition: all 0.3s ease;
+                                    border: 1px solid #eaeaea;
+                                    /height: 520px;/ min-height: 520px;
+                                    display: flex;
+                                    flex-direction: column;
+                                    justify-content: space-between;
+                                }
+
+                                .post-card img {
+                                    max-height: 170px;
+                                    min-height: 170px;
+                                    object-fit: cover;
+                                    margin-bottom: 15px;
+                                    width: 100%;
+                                }
+
+                                .card-footer {
+                                    margin-top: auto;
+                                }
                             </style>
 
                             <div class="row">
@@ -48,35 +77,42 @@
                                                 %>
 
                                                 <div class="col-md-6 mt-2">
-                                                    <div class="card">
-                                                        <img class="card-img-top" src="blog_pics/<%= p.getpPic() %>"
-                                                            alt="Card image cap">
+                                                    <div class="card post-card">
+                                                        <img src="blog_pics/<%= p.getpPic()%>" alt="Card image" />
                                                         <div class="card-body">
-                                                            <b>
-                                                                <%= p.getpTitle() %>
-                                                            </b>
-                                                            <p>
-                                                                <%= p.getpContent() %>
-                                                            </p>
+                                                            <div class="post-title">
+                                                                <%= p.getpTitle()%>
+                                                            </div>
+                                                            <div id="snippet-<%= p.getPid()%>" class="post-snippet">
+                                                                <% String content=p.getpContent(); if (content.length()>
+                                                                    150) {
+                                                                    out.print(content.substring(0, 150) + "...");
+                                                                    } else {
+                                                                    out.print(content);
+                                                                    }
+                                                                    %>
+                                                            </div>
+                                                            <div id="full-<%= p.getPid()%>" class="post-full-content">
+                                                                <%= p.getpContent()%>
+                                                            </div>
+
                                                         </div>
                                                         <div class="card-footer primary-background text-center">
-
                                                             <a href="#!"
-                                                                onclick="doLike(<%= p.getPid() %>, <%= currentUser.getId() %>, this)"
+                                                                onclick="doLike(<%= p.getPid()%>, <%= currentUser.getId()%>, this)"
                                                                 class="btn btn-outline-light btn-sm <%= userLiked ? "
                                                                 btn-liked" : "" %>"
                                                                 <%= userLiked ? "disabled" : "" %>>
                                                                     <i class="fa fa-thumbs-o-up"></i>
                                                                     <span class="like-counter">
-                                                                        <%= likeDao.countLikeOnPost(p.getPid()) %>
+                                                                        <%= likeDao.countLikeOnPost(p.getPid())%>
                                                                     </span>
                                                             </a>
-
-                                                            <a href="show_blog_page.jsp?post_id=<%= p.getPid() %>"
+                                                            <a href="show_blog_page.jsp?post_id=<%= p.getPid()%>"
                                                                 class="btn btn-outline-light btn-sm">Read More...</a>
-
                                                         </div>
                                                     </div>
+
                                                 </div>
 
                                                 <% } %>
@@ -88,7 +124,8 @@
 
                             <script>
                                 function doLike(pid, uid, btn) {
-                                    if (btn.disabled) return;
+                                    if (btn.disabled)
+                                        return;
 
                                     $.ajax({
                                         url: 'LikeServlet',
