@@ -9,14 +9,14 @@ public class LikeDao {
     public LikeDao(Connection con) {
         this.con = con;
     }
-    
+
     // after like the data saved into liked table
     public boolean insertLike(int pid, int uid) {
         boolean f = false;
         try {
             String q = "insert into liked(pid,uid)values(?,?)";
             PreparedStatement p = this.con.prepareStatement(q);
-            //values set...
+            // values set...
             p.setInt(1, pid);
             p.setInt(2, uid);
             p.executeUpdate();
@@ -28,7 +28,6 @@ public class LikeDao {
 
         return f;
     }
-
 
     // count a likes on aparticular post with particular id
     public int countLikeOnPost(int pid) {
@@ -50,7 +49,6 @@ public class LikeDao {
         return count;
     }
 
-
     // it checks that the particular post is liked by particular id or not
     public boolean isLikedByUser(int pid, int uid) {
         boolean f = false;
@@ -68,7 +66,6 @@ public class LikeDao {
         return f;
     }
 
-    
     public boolean deleteLike(int pid, int uid) {
         boolean f = false;
         try {
@@ -83,5 +80,4 @@ public class LikeDao {
 
         return f;
     }
-
 }
