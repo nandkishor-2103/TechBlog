@@ -1,7 +1,9 @@
+
 package com.tech.blog.entities;
 
-public class Message {
 
+public class Message {
+    
     private String content;
     private String type;
     private String cssClass;
@@ -11,7 +13,7 @@ public class Message {
         this.type = type;
         this.cssClass = cssClass;
     }
-
+    
     // getters and setters
 
     public String getContent() {
@@ -37,5 +39,7 @@ public class Message {
     public void setCssClass(String cssClass) {
         this.cssClass = cssClass;
     }
-
+    
+    
+    
 }

@@ -1,5 +1,4 @@
 package com.tech.blog.entities;
-
 import java.sql.*;
 
 public class User {
@@ -21,9 +20,9 @@ public class User {
         this.dateTime = dateTime;
         this.about = about;
     }
-
+    
     public User() {
-
+        
     }
 
     public User(String name, String email, String password, String gender, String about) {
@@ -33,7 +32,7 @@ public class User {
         this.gender = gender;
         this.about = about;
     }
-
+    
     // Getters and Setters
 
     public int getId() {
@@ -99,5 +98,8 @@ public class User {
     public void setProfile(String profile) {
         this.profile = profile;
     }
+    
+    
+    
 
 }
