@@ -44,6 +44,7 @@ public class SearchServlet extends HttpServlet {
 
         request.setAttribute("searchResults", results);
         request.setAttribute("searchQuery", search);
+        //Entry point of HTTP request and response 
         RequestDispatcher rd = request.getRequestDispatcher("search_results.jsp");
         rd.forward(request, response);
     }
