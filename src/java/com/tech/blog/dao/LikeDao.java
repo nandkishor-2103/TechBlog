@@ -30,6 +30,7 @@ public class LikeDao {
     }
 
     // count a likes on aparticular post with particular id
+    // count a likes on aparticular post with particular id
     public int countLikeOnPost(int pid) {
         int count = 0;
 
