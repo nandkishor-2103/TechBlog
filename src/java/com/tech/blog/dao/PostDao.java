@@ -154,4 +154,66 @@ public class PostDao {
         return post;
     }
 
+    // get all posts by a specific user (for "My Posts" page)
+    public List<Post> getPostsByUserId(int userId) {
+        List<Post> list = new ArrayList<>();
+        try {
+            String q = "SELECT * FROM posts WHERE userId = ? ORDER BY pid DESC";
+            PreparedStatement pstmt = con.prepareStatement(q);
+            pstmt.setInt(1, userId);
+            ResultSet set = pstmt.executeQuery();
+
+            while (set.next()) {
+                int pid = set.getInt("pid");
+                String pTitle = set.getString("pTitle");
+                String pContent = set.getString("pContent");
+                String pCode = set.getString("pCode");
+                String pPic = set.getString("pPic");
+                Timestamp date = set.getTimestamp("pDate");
+                int catId = set.getInt("catId");
+
+                Post post = new Post(pid, pTitle, pContent, pCode, pPic, date, catId, userId);
+                list.add(post);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    // Delete post
+    public boolean deletePost(int postId) {
+        boolean success = false;
+        try {
+            String query = "DELETE FROM posts WHERE pid = ?";
+            PreparedStatement pstmt = con.prepareStatement(query);
+            pstmt.setInt(1, postId);
+            pstmt.executeUpdate();
+            success = true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return success;
+    }
+
+    // Update post
+    public boolean updatePost(Post post) {
+        boolean success = false;
+        try {
+            String query = "UPDATE posts SET pTitle=?, pContent=?, pCode=?, pPic=?, catId=? WHERE pid=?";
+            PreparedStatement pstmt = con.prepareStatement(query);
+            pstmt.setString(1, post.getpTitle());
+            pstmt.setString(2, post.getpContent());
+            pstmt.setString(3, post.getpCode());
+            pstmt.setString(4, post.getpPic());
+            pstmt.setInt(5, post.getCatId());
+            pstmt.setInt(6, post.getPid());
+            pstmt.executeUpdate();
+            success = true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return success;
+    }
+
 }
