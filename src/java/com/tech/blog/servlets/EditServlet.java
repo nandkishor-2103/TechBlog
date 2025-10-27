@@ -52,44 +52,7 @@ public class EditServlet extends HttpServlet {
     UserDao userDao = new UserDao(ConnectionProvider.getConnection());
     boolean updated = userDao.updateUser(user);
 
-<<<<<<< HEAD
-                // delete older profile photos
-                String pathOldFile = request.getRealPath("/") + "pics" + File.separator + oldFile;
-                
-                if(!oldFile.equals("default.png")) {
-                    Helper.deleteFile(pathOldFile);
-                }
-                
-                if (Helper.saveFile(part.getInputStream(), path)) {
-                    out.println("Profile updated...");
-                    Message msg = new Message("Profile details updated successfully...", "success", "alert-success");
-                    s.setAttribute("msg", msg);
-                } else {
-                    Message msg = new Message("Somenthing went wrong...", "error", "alert-danger");
-                    s.setAttribute("msg", msg);
-                }
 
-            } else {
-                out.println("not updated...");
-                Message msg = new Message("Somenthing went wrong...", "error", "alert-danger");
-                s.setAttribute("msg", msg);
-
-            }
-            
-            response.sendRedirect("profile.jsp");
-
-            out.println("</body>");
-            out.println("</html>");
-=======
-    if (updated) {
-        String uploadDir = getServletContext().getRealPath("/") + "pics" + File.separator;
-        String newFilePath = uploadDir + imageName;
-        String oldFilePath = uploadDir + oldFile;
-
-        if (!oldFile.equals("default.png") && !oldFile.equals(imageName)) {
-            Helper.deleteFile(oldFilePath);
->>>>>>> TabishV2
-        }
 
         if (!imageName.equals(oldFile)) {
             Helper.saveFile(part.getInputStream(), newFilePath);
@@ -100,48 +63,3 @@ public class EditServlet extends HttpServlet {
         session.setAttribute("msg", new Message("Something went wrong!", "error", "alert-danger"));
     }
 
-<<<<<<< HEAD
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
-
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-
-}
-=======
-    response.sendRedirect("profile.jsp");
-}
->>>>>>> TabishV2
