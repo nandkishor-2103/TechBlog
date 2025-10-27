@@ -64,6 +64,7 @@ public class PostDao {
 
             while (rs.next()) {
                 list.add(mapPost(rs));
+<<<<<<< HEAD
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -143,6 +144,8 @@ public class PostDao {
                 Post post = new Post(pid, pTitle, pContent, pCode, pPic, date, catId, userId);
                 list.add(post);
 >>>>>>> Abhilipsa
+=======
+>>>>>>> TabishV2
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -150,6 +153,7 @@ public class PostDao {
         return list;
     }
 
+<<<<<<< HEAD
     // Delete post
     public boolean deletePost(int postId) {
 <<<<<<< HEAD
@@ -170,6 +174,39 @@ public class PostDao {
             pstmt.setInt(1, postId);
             pstmt.executeUpdate();
             success = true;
+=======
+    // Get posts by category
+    public List<Post> getPostByCatId(int catId) {
+        List<Post> list = new ArrayList<>();
+        String query = "SELECT * FROM posts WHERE catId=? ORDER BY pid DESC";
+
+        try (PreparedStatement pstmt = con.prepareStatement(query)) {
+            pstmt.setInt(1, catId);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    list.add(mapPost(rs));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    // Get post by ID
+    public Post getPostByPostId(int postId) {
+        String query = "SELECT * FROM posts WHERE pid=?";
+        Post post = null;
+
+        try (PreparedStatement pstmt = con.prepareStatement(query)) {
+            pstmt.setInt(1, postId);
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    post = mapPost(rs);
+                }
+            }
+>>>>>>> TabishV2
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -177,6 +214,7 @@ public class PostDao {
 >>>>>>> Abhilipsa
     }
 
+<<<<<<< HEAD
     // Update post
     public boolean updatePost(Post post) {
 <<<<<<< HEAD
@@ -189,6 +227,45 @@ public class PostDao {
             String query = "UPDATE posts SET pTitle=?, pContent=?, pCode=?, pPic=?, catId=? WHERE pid=?";
             PreparedStatement pstmt = con.prepareStatement(query);
 >>>>>>> Abhilipsa
+=======
+    // Get posts by user
+    public List<Post> getPostsByUserId(int userId) {
+        List<Post> list = new ArrayList<>();
+        String query = "SELECT * FROM posts WHERE userId=? ORDER BY pid DESC";
+
+        try (PreparedStatement pstmt = con.prepareStatement(query)) {
+            pstmt.setInt(1, userId);
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    list.add(mapPost(rs));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    // Delete post
+    public boolean deletePost(int postId) {
+        String query = "DELETE FROM posts WHERE pid=?";
+        try (PreparedStatement pstmt = con.prepareStatement(query)) {
+            pstmt.setInt(1, postId);
+            pstmt.executeUpdate();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    // Update post
+    public boolean updatePost(Post post) {
+        String query = "UPDATE posts SET pTitle=?, pContent=?, pCode=?, pPic=?, catId=? WHERE pid=?";
+
+        try (PreparedStatement pstmt = con.prepareStatement(query)) {
+>>>>>>> TabishV2
             pstmt.setString(1, post.getpTitle());
             pstmt.setString(2, post.getpContent());
             pstmt.setString(3, post.getpCode());
@@ -197,6 +274,9 @@ public class PostDao {
             pstmt.setInt(6, post.getPid());
             pstmt.executeUpdate();
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> TabishV2
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -217,6 +297,7 @@ public class PostDao {
                 rs.getInt("userId"));
     }
 }
+<<<<<<< HEAD
 =======
             success = true;
         } catch (Exception e) {
@@ -227,3 +308,5 @@ public class PostDao {
 
 }
 >>>>>>> Abhilipsa
+=======
+>>>>>>> TabishV2

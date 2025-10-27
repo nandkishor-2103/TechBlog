@@ -53,13 +53,10 @@ public class EditServlet extends HttpServlet {
     boolean updated = userDao.updateUser(user);
 
 
-
-        if (!imageName.equals(oldFile)) {
-            Helper.saveFile(part.getInputStream(), newFilePath);
-        }
-
         session.setAttribute("msg", new Message("Profile updated successfully!", "success", "alert-success"));
     } else {
         session.setAttribute("msg", new Message("Something went wrong!", "error", "alert-danger"));
     }
+    response.sendRedirect("profile.jsp");
+}
 
