@@ -5,130 +5,98 @@ import java.sql.*;
 
 public class UserDao {
 
-    private Connection con;
+    private final Connection con;
 
     public UserDao(Connection con) {
         this.con = con;
     }
 
-    // Method to insert user to database
+    // Save new user
     public boolean saveUser(User user) {
+        String query = "INSERT INTO user(name, email, password, gender, about) VALUES (?, ?, ?, ?, ?)";
 
-        boolean f = false;
-
-        try {
-
-            // user ---> database
-            String query = "insert into user(name,email,password,gender,about) values (?,?,?,?,?)";
-
-            PreparedStatement pstmt = this.con.prepareStatement(query);
-
+        try (PreparedStatement pstmt = con.prepareStatement(query)) {
             pstmt.setString(1, user.getName());
             pstmt.setString(2, user.getEmail());
             pstmt.setString(3, user.getPassword());
             pstmt.setString(4, user.getGender());
             pstmt.setString(5, user.getAbout());
-
             pstmt.executeUpdate();
-            f = true;
-
+            return true;
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        return f;
+        return false;
     }
 
-    // get user by useremail and userpassword:
+    // Get user by email & password (login)
     public User getUserByEmailAndPassword(String email, String password) {
-        User user = null;
+        String query = "SELECT * FROM user WHERE email=? AND password=?";
 
-        try {
-
-            String query = "select * from user where email =? and password=?";
-            PreparedStatement pstmt = con.prepareStatement(query);
+        try (PreparedStatement pstmt = con.prepareStatement(query)) {
             pstmt.setString(1, email);
             pstmt.setString(2, password);
 
-            ResultSet set = pstmt.executeQuery();
-
-            if (set.next()) {
-                user = new User();
-
-                // data from db
-                String name = set.getString("name");
-                // set to user object
-                user.setName(name);
-
-                user.setId(set.getInt("id"));
-                user.setEmail(set.getString("email"));
-                user.setPassword(set.getString("password"));
-                user.setGender(set.getString("gender"));
-                user.setAbout(set.getString("about"));
-                user.setDateTime(set.getTimestamp("rdate"));
-                user.setProfile(set.getString("profile"));
-
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    return mapUser(rs);
+                }
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        return user;
+        return null;
     }
 
-    // update user profile
+    // Update user profile
     public boolean updateUser(User user) {
+        String query = "UPDATE user SET name=?, email=?, password=?, gender=?, about=?, profile=? WHERE id=?";
 
-        boolean f = false;
-        try {
-
-            String query = "update user set name=? , email=? , password=? , gender=? ,about=? , profile=? where  id =?";
-            PreparedStatement p = con.prepareStatement(query);
-            p.setString(1, user.getName());
-            p.setString(2, user.getEmail());
-            p.setString(3, user.getPassword());
-            p.setString(4, user.getGender());
-            p.setString(5, user.getAbout());
-            p.setString(6, user.getProfile());
-            p.setInt(7, user.getId());
-
-            p.executeUpdate();
-            f = true;
-
+        try (PreparedStatement pstmt = con.prepareStatement(query)) {
+            pstmt.setString(1, user.getName());
+            pstmt.setString(2, user.getEmail());
+            pstmt.setString(3, user.getPassword());
+            pstmt.setString(4, user.getGender());
+            pstmt.setString(5, user.getAbout());
+            pstmt.setString(6, user.getProfile());
+            pstmt.setInt(7, user.getId());
+            pstmt.executeUpdate();
+            return true;
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return f;
+        return false;
     }
 
+    // Get user by ID
     public User getUserByUserId(int userId) {
-        User user = null;
-        try {
-            String q = "select * from user where id=?";
-            PreparedStatement ps = this.con.prepareStatement(q);
-            ps.setInt(1, userId);
-            ResultSet set = ps.executeQuery();
-            if (set.next()) {
-                user = new User();
+        String query = "SELECT * FROM user WHERE id=?";
 
-                // data from db
-                String name = set.getString("name");
-                // set to user object
-                user.setName(name);
+        try (PreparedStatement pstmt = con.prepareStatement(query)) {
+            pstmt.setInt(1, userId);
 
-                user.setId(set.getInt("id"));
-                user.setEmail(set.getString("email"));
-                user.setPassword(set.getString("password"));
-                user.setGender(set.getString("gender"));
-                user.setAbout(set.getString("about"));
-                user.setDateTime(set.getTimestamp("rdate"));
-                user.setProfile(set.getString("profile"));
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    return mapUser(rs);
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return null;
+    }
 
+    // Helper method to convert ResultSet → User object
+    private User mapUser(ResultSet rs) throws Exception {
+        User user = new User();
+        user.setId(rs.getInt("id"));
+        user.setName(rs.getString("name"));
+        user.setEmail(rs.getString("email"));
+        user.setPassword(rs.getString("password"));
+        user.setGender(rs.getString("gender"));
+        user.setAbout(rs.getString("about"));
+        user.setDateTime(rs.getTimestamp("rdate"));
+        user.setProfile(rs.getString("profile"));
         return user;
     }
 }

@@ -39,6 +39,9 @@ public class AddPostServlet extends HttpServlet {
                 return;
             }
 
+
+
+
             int cid = Integer.parseInt(cidStr);
             String pTitle = request.getParameter("pTitle");
             String pContent = request.getParameter("pContent");
@@ -69,6 +72,11 @@ public class AddPostServlet extends HttpServlet {
         }
     }
 
+
+
+
+
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -83,6 +91,15 @@ public class AddPostServlet extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
     }
+
+
+
+
+
+
+
+
+
 
     /**
      * Handles the HTTP <code>POST</code> method.
@@ -107,5 +124,5 @@ public class AddPostServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
+    //  thats final
 }

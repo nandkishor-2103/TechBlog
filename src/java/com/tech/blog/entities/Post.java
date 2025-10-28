@@ -1,4 +1,3 @@
-
 package com.tech.blog.entities;
 
 import java.sql.*;
