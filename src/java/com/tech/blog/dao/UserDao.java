@@ -39,7 +39,7 @@ public class UserDao {
         return f;
     }
 
-    // get user by useremail and userpassword:
+    //get user by useremail and userpassword:
     public User getUserByEmailAndPassword(String email, String password) {
         User user = null;
 
@@ -55,9 +55,9 @@ public class UserDao {
             if (set.next()) {
                 user = new User();
 
-                // data from db
+                //data from db
                 String name = set.getString("name");
-                // set to user object
+                //set to user object
                 user.setName(name);
 
                 user.setId(set.getInt("id"));
