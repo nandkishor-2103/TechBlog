@@ -29,7 +29,7 @@ public class UserDao {
         return false;
     }
 
-    // Get user by email & password (login)
+    //get user by useremail and userpassword:
     public User getUserByEmailAndPassword(String email, String password) {
         String query = "SELECT * FROM user WHERE email=? AND password=?";
 
@@ -37,10 +37,24 @@ public class UserDao {
             pstmt.setString(1, email);
             pstmt.setString(2, password);
 
-            try (ResultSet rs = pstmt.executeQuery()) {
-                if (rs.next()) {
-                    return mapUser(rs);
-                }
+            ResultSet set = pstmt.executeQuery();
+
+            if (set.next()) {
+                user = new User();
+
+                //data from db
+                String name = set.getString("name");
+                //set to user object
+                user.setName(name);
+
+                user.setId(set.getInt("id"));
+                user.setEmail(set.getString("email"));
+                user.setPassword(set.getString("password"));
+                user.setGender(set.getString("gender"));
+                user.setAbout(set.getString("about"));
+                user.setDateTime(set.getTimestamp("rdate"));
+                user.setProfile(set.getString("profile"));
+
             }
         } catch (Exception e) {
             e.printStackTrace();
