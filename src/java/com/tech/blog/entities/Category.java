@@ -22,6 +22,7 @@ public class Category {
         this.description = description;
     }
     
+    
     // Getter and Setter
     public int getCid() {
         return cid;
